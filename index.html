@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AVKAS</title>
+<title>Project Title</title>
 <meta charset="utf-8">
 <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
 <style> @-ms-viewport { width: device-width; } </style>
@@ -31,8 +31,8 @@
         <li class="text">Dining Area</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="4-studey-launge">
-        <li class="text">Studey Launge</li>
+      <a href="javascript:void(0)" class="scene" data-id="4-study-launge">
+        <li class="text">Study Launge</li>
       </a>
     
       <a href="javascript:void(0)" class="scene" data-id="5-study-area">
@@ -47,44 +47,44 @@
         <li class="text">Master BedRoom</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="8-master-toilet">
-        <li class="text">Master Toilet</li>
+      <a href="javascript:void(0)" class="scene" data-id="8-master-bedroom-toilet">
+        <li class="text">Master Bedroom Toilet</li>
       </a>
     
       <a href="javascript:void(0)" class="scene" data-id="9-son-bedroom">
         <li class="text">Son Bedroom</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="10-son-toilet">
-        <li class="text">Son Toilet</li>
+      <a href="javascript:void(0)" class="scene" data-id="10-son-bedroom-toilet">
+        <li class="text">Son Bedroom Toilet</li>
       </a>
     
       <a href="javascript:void(0)" class="scene" data-id="11-parents-bedroom">
         <li class="text">Parents Bedroom</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="12-parent-toilet">
-        <li class="text">Parent Toilet</li>
+      <a href="javascript:void(0)" class="scene" data-id="12-parents-bedroom-toilet">
+        <li class="text">Parents Bedroom Toilet</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="13-parent-wardrobe">
-        <li class="text">Parent Wardrobe</li>
+      <a href="javascript:void(0)" class="scene" data-id="13-parents-wardrobe">
+        <li class="text">Parents Wardrobe</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="14-aais-bedroom">
-        <li class="text">Aais Bedroom</li>
+      <a href="javascript:void(0)" class="scene" data-id="14-aai-bedroom">
+        <li class="text">Aai Bedroom</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="15-aais-toilet">
-        <li class="text">Aais Toilet</li>
+      <a href="javascript:void(0)" class="scene" data-id="15-aai-bedroom-toilet">
+        <li class="text">Aai Bedroom Toilet</li>
       </a>
     
       <a href="javascript:void(0)" class="scene" data-id="16-dau-bedroom">
-        <li class="text">Dau Bedroom</li>
+        <li class="text">Dau. Bedroom</li>
       </a>
     
-      <a href="javascript:void(0)" class="scene" data-id="17-dau-toilet">
-        <li class="text">Dau Toilet</li>
+      <a href="javascript:void(0)" class="scene" data-id="17-dau-bedroom-toilet">
+        <li class="text">Dau. Bedroom Toilet</li>
       </a>
     
       <a href="javascript:void(0)" class="scene" data-id="18-foyer">
@@ -143,116 +143,6 @@
 <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
   <img class="icon" src="img/minus.png">
 </a>
-
-<!-- Key Plan Button -->
-<a href="javascript:void(0)" id="keyPlanToggle" title="Key Plan">
-  <span id="keyPlanLabel">Key Plan</span>
-</a>
-
-<!-- Key Plan Popup -->
-<div id="keyPlanOverlay">
-  <div id="keyPlanBox">
-    <a href="javascript:void(0)" id="keyPlanClose">&times;</a>
-    <img id="keyPlanImg" src="img/keyplan.jpg" alt="Key Plan">
-  </div>
-</div>
-
-<style>
-  #keyPlanToggle {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 1000;
-    background: rgba(30,30,30,0.75);
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 24px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    transition: background 0.2s ease;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-  #keyPlanToggle:hover {
-    background: rgba(60,60,60,0.9);
-  }
-
-  #keyPlanOverlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.75);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-  }
-  #keyPlanOverlay.open {
-    display: flex;
-  }
-
-  #keyPlanBox {
-    position: relative;
-    max-width: 90%;
-    max-height: 90%;
-    background: #fff;
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-
-  #keyPlanImg {
-    display: block;
-    max-width: 100%;
-    max-height: 85vh;
-    border-radius: 4px;
-  }
-
-  #keyPlanClose {
-    position: absolute;
-    top: -14px;
-    right: -14px;
-    width: 30px;
-    height: 30px;
-    line-height: 28px;
-    text-align: center;
-    background: #fff;
-    color: #000;
-    border-radius: 50%;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    cursor: pointer;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var toggleBtn = document.getElementById('keyPlanToggle');
-    var overlay = document.getElementById('keyPlanOverlay');
-    var closeBtn = document.getElementById('keyPlanClose');
-
-    toggleBtn.addEventListener('click', function () {
-      overlay.classList.add('open');
-    });
-
-    closeBtn.addEventListener('click', function () {
-      overlay.classList.remove('open');
-    });
-
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) {
-        overlay.classList.remove('open');
-      }
-    });
-  });
-</script>
 
 <script src="vendor/screenfull.min.js" ></script>
 <script src="vendor/bowser.min.js" ></script>

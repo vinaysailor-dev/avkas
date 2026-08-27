@@ -164,7 +164,7 @@ var APP_DATA = {
           "yaw": 0.31446662111311774,
           "pitch": 0.136962215403722,
           "rotation": 0,
-          "target": "4-studey-launge"
+          "target": "4-study-launge"
         },
         {
           "yaw": 1.6731040013593361,
@@ -227,7 +227,7 @@ var APP_DATA = {
           "yaw": 2.6768069621178148,
           "pitch": 0.09041629139527174,
           "rotation": 0,
-          "target": "4-studey-launge"
+          "target": "4-study-launge"
         },
         {
           "yaw": -1.4652101299772564,
@@ -239,8 +239,8 @@ var APP_DATA = {
       "infoHotspots": []
     },
     {
-      "id": "4-studey-launge",
-      "name": "Studey Launge",
+      "id": "4-study-launge",
+      "name": "Study Launge",
       "levels": [
         {
           "tileSize": 256,
@@ -333,7 +333,7 @@ var APP_DATA = {
           "yaw": -3.136104956987717,
           "pitch": 0.27280954840998106,
           "rotation": 0,
-          "target": "8-master-toilet"
+          "target": "8-master-bedroom-toilet"
         },
         {
           "yaw": -0.8728374551484812,
@@ -421,7 +421,7 @@ var APP_DATA = {
           "yaw": -0.6139454825690009,
           "pitch": 0.01926554107233258,
           "rotation": 0,
-          "target": "8-master-toilet"
+          "target": "8-master-bedroom-toilet"
         },
         {
           "yaw": -1.1840804468759512,
@@ -433,8 +433,8 @@ var APP_DATA = {
       "infoHotspots": []
     },
     {
-      "id": "8-master-toilet",
-      "name": "Master Toilet",
+      "id": "8-master-bedroom-toilet",
+      "name": "Master Bedroom Toilet",
       "levels": [
         {
           "tileSize": 256,
@@ -515,14 +515,14 @@ var APP_DATA = {
           "yaw": 1.0522133455211549,
           "pitch": 0.123062272087898,
           "rotation": 0,
-          "target": "10-son-toilet"
+          "target": "10-son-bedroom-toilet"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "10-son-toilet",
-      "name": "Son Toilet",
+      "id": "10-son-bedroom-toilet",
+      "name": "Son Bedroom Toilet",
       "levels": [
         {
           "tileSize": 256,
@@ -591,20 +591,20 @@ var APP_DATA = {
           "yaw": -2.4604955858517545,
           "pitch": 0.06255266423881167,
           "rotation": 0,
-          "target": "12-parent-toilet"
+          "target": "12-parents-bedroom-toilet"
         },
         {
           "yaw": -0.4149669822845734,
           "pitch": 0.22129024569838052,
           "rotation": 0,
-          "target": "4-studey-launge"
+          "target": "4-study-launge"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "12-parent-toilet",
-      "name": "Parent Toilet",
+      "id": "12-parents-bedroom-toilet",
+      "name": "Parents Bedroom Toilet",
       "levels": [
         {
           "tileSize": 256,
@@ -641,14 +641,14 @@ var APP_DATA = {
           "yaw": 2.9259615799660272,
           "pitch": 0.2219506116222263,
           "rotation": 0,
-          "target": "13-parent-wardrobe"
+          "target": "13-parents-wardrobe"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "13-parent-wardrobe",
-      "name": "Parent Wardrobe",
+      "id": "13-parents-wardrobe",
+      "name": "Parents Wardrobe",
       "levels": [
         {
           "tileSize": 256,
@@ -679,14 +679,14 @@ var APP_DATA = {
           "yaw": -3.083215682801626,
           "pitch": 0.13079853589682067,
           "rotation": 0,
-          "target": "12-parent-toilet"
+          "target": "12-parents-bedroom-toilet"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "14-aais-bedroom",
-      "name": "Aais Bedroom",
+      "id": "14-aai-bedroom",
+      "name": "Aai Bedroom",
       "levels": [
         {
           "tileSize": 256,
@@ -723,14 +723,14 @@ var APP_DATA = {
           "yaw": 2.9933342440159176,
           "pitch": 0.12050723439010014,
           "rotation": 0,
-          "target": "15-aais-toilet"
+          "target": "15-aai-bedroom-toilet"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "15-aais-toilet",
-      "name": "Aais Toilet",
+      "id": "15-aai-bedroom-toilet",
+      "name": "Aai Bedroom Toilet",
       "levels": [
         {
           "tileSize": 256,
@@ -761,14 +761,14 @@ var APP_DATA = {
           "yaw": 2.0653139117227894,
           "pitch": 0.040250350731124485,
           "rotation": 0,
-          "target": "14-aais-bedroom"
+          "target": "14-aai-bedroom"
         }
       ],
       "infoHotspots": []
     },
     {
       "id": "16-dau-bedroom",
-      "name": "Dau Bedroom",
+      "name": "Dau. Bedroom",
       "levels": [
         {
           "tileSize": 256,
@@ -799,20 +799,20 @@ var APP_DATA = {
           "yaw": -2.0361169405226285,
           "pitch": 0.12342221312633228,
           "rotation": 0,
-          "target": "17-dau-toilet"
+          "target": "17-dau-bedroom-toilet"
         },
         {
           "yaw": -2.6286603930452443,
           "pitch": 0.12218600562295556,
           "rotation": 0,
-          "target": "4-studey-launge"
+          "target": "4-study-launge"
         }
       ],
       "infoHotspots": []
     },
     {
-      "id": "17-dau-toilet",
-      "name": "Dau Toilet",
+      "id": "17-dau-bedroom-toilet",
+      "name": "Dau. Bedroom Toilet",
       "levels": [
         {
           "tileSize": 256,
@@ -893,7 +893,7 @@ var APP_DATA = {
           "yaw": -0.5823479892587891,
           "pitch": 0.12403226691036018,
           "rotation": 0,
-          "target": "14-aais-bedroom"
+          "target": "14-aai-bedroom"
         },
         {
           "yaw": -2.7846198628452132,
