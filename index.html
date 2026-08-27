@@ -153,7 +153,14 @@
 <div id="keyPlanOverlay">
   <div id="keyPlanBox">
     <a href="javascript:void(0)" id="keyPlanClose">&times;</a>
-    <img id="keyPlanImg" src="img/keyplan.jpg" alt="Key Plan">
+    <div id="keyPlanZoomControls">
+      <a href="javascript:void(0)" id="keyPlanZoomIn">+</a>
+      <a href="javascript:void(0)" id="keyPlanZoomReset">⟲</a>
+      <a href="javascript:void(0)" id="keyPlanZoomOut">&minus;</a>
+    </div>
+    <div id="keyPlanViewport">
+      <img id="keyPlanImg" src="img/keyplan.jpg" alt="Key Plan">
+    </div>
   </div>
 </div>
 
@@ -183,10 +190,8 @@
   #keyPlanOverlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0,0,0,0.75);
     z-index: 2000;
     justify-content: center;
@@ -198,19 +203,38 @@
 
   #keyPlanBox {
     position: relative;
-    max-width: 90%;
-    max-height: 90%;
+    width: 90%;
+    height: 85%;
     background: #fff;
     padding: 10px;
     border-radius: 6px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    display: flex;
+  }
+
+  #keyPlanViewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #f0f0f0;
+    cursor: grab;
+    touch-action: none;
+  }
+  #keyPlanViewport.dragging {
+    cursor: grabbing;
   }
 
   #keyPlanImg {
+    position: absolute;
+    top: 0; left: 0;
     display: block;
-    max-width: 100%;
-    max-height: 85vh;
     border-radius: 4px;
+    transform-origin: 0 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
   }
 
   #keyPlanClose {
@@ -229,28 +253,166 @@
     text-decoration: none;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     cursor: pointer;
+    z-index: 10;
+  }
+
+  #keyPlanZoomControls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  #keyPlanZoomControls a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgba(30,30,30,0.75);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  #keyPlanZoomControls a:hover {
+    background: rgba(60,60,60,0.9);
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var toggleBtn = document.getElementById('keyPlanToggle');
-    var overlay = document.getElementById('keyPlanOverlay');
-    var closeBtn = document.getElementById('keyPlanClose');
+    var toggleBtn    = document.getElementById('keyPlanToggle');
+    var overlay      = document.getElementById('keyPlanOverlay');
+    var closeBtn     = document.getElementById('keyPlanClose');
+    var viewport     = document.getElementById('keyPlanViewport');
+    var img          = document.getElementById('keyPlanImg');
+    var zoomInBtn    = document.getElementById('keyPlanZoomIn');
+    var zoomOutBtn   = document.getElementById('keyPlanZoomOut');
+    var zoomResetBtn = document.getElementById('keyPlanZoomReset');
+
+    var scale = 1, minScale = 1, maxScale = 6;
+    var posX = 0, posY = 0;
+    var baseW = 0, baseH = 0;
+    var isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+
+    function applyTransform() {
+      img.style.transform = 'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+    }
+
+    function computeBaseSize() {
+      var vpRect = viewport.getBoundingClientRect();
+      if (!vpRect.width || !vpRect.height || !img.naturalWidth || !img.naturalHeight) return false;
+      var ratio = Math.min(vpRect.width / img.naturalWidth, vpRect.height / img.naturalHeight);
+      baseW = img.naturalWidth * ratio;
+      baseH = img.naturalHeight * ratio;
+      img.style.width  = baseW + 'px';
+      img.style.height = baseH + 'px';
+      return true;
+    }
+
+    function clampPos() {
+      var vpRect = viewport.getBoundingClientRect();
+      var imgW = baseW * scale, imgH = baseH * scale;
+      if (imgW <= vpRect.width)  { posX = (vpRect.width  - imgW) / 2; }
+      else { if (posX > 0) posX = 0; if (posX < vpRect.width  - imgW) posX = vpRect.width  - imgW; }
+      if (imgH <= vpRect.height) { posY = (vpRect.height - imgH) / 2; }
+      else { if (posY > 0) posY = 0; if (posY < vpRect.height - imgH) posY = vpRect.height - imgH; }
+    }
+
+    function setScale(newScale, cx, cy) {
+      newScale = Math.min(maxScale, Math.max(minScale, newScale));
+      var vpRect = viewport.getBoundingClientRect();
+      if (cx === undefined) cx = vpRect.width / 2;
+      if (cy === undefined) cy = vpRect.height / 2;
+      var ratio = newScale / scale;
+      posX = cx - (cx - posX) * ratio;
+      posY = cy - (cy - posY) * ratio;
+      scale = newScale;
+      clampPos();
+      applyTransform();
+    }
+
+    function resetZoom() {
+      scale = 1; posX = 0; posY = 0;
+      if (!computeBaseSize()) return;
+      clampPos();
+      applyTransform();
+    }
 
     toggleBtn.addEventListener('click', function () {
       overlay.classList.add('open');
+      requestAnimationFrame(function () { requestAnimationFrame(resetZoom); });
+    });
+    closeBtn.addEventListener('click', function () { overlay.classList.remove('open'); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.classList.remove('open'); });
+
+    zoomInBtn.addEventListener('click',    function () { setScale(scale + 0.5); });
+    zoomOutBtn.addEventListener('click',   function () { setScale(scale - 0.5); });
+    zoomResetBtn.addEventListener('click', resetZoom);
+
+    viewport.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      var r = viewport.getBoundingClientRect();
+      setScale(scale + (e.deltaY < 0 ? 0.2 : -0.2), e.clientX - r.left, e.clientY - r.top);
+    }, { passive: false });
+
+    viewport.addEventListener('mousedown', function (e) {
+      if (scale <= minScale) return;
+      isDragging = true; viewport.classList.add('dragging');
+      startX = e.clientX; startY = e.clientY; startPosX = posX; startPosY = posY;
+    });
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      posX = startPosX + (e.clientX - startX);
+      posY = startPosY + (e.clientY - startY);
+      clampPos(); applyTransform();
+    });
+    window.addEventListener('mouseup', function () { isDragging = false; viewport.classList.remove('dragging'); });
+
+    viewport.addEventListener('dblclick', function (e) {
+      var r = viewport.getBoundingClientRect();
+      scale < maxScale ? setScale(Math.min(scale + 1.5, maxScale), e.clientX - r.left, e.clientY - r.top) : resetZoom();
     });
 
-    closeBtn.addEventListener('click', function () {
-      overlay.classList.remove('open');
-    });
+    var lastDist = null;
+    function tDist(a, b) { var dx = a.clientX-b.clientX, dy = a.clientY-b.clientY; return Math.sqrt(dx*dx+dy*dy); }
+    function tMid(a, b, r) { return { x:(a.clientX+b.clientX)/2-r.left, y:(a.clientY+b.clientY)/2-r.top }; }
 
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) {
-        overlay.classList.remove('open');
+    viewport.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 1 && scale > minScale) {
+        isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; startPosX = posX; startPosY = posY;
+      } else if (e.touches.length === 2) {
+        isDragging = false; lastDist = tDist(e.touches[0], e.touches[1]);
       }
-    });
+    }, { passive: false });
+
+    viewport.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+      if (e.touches.length === 1 && isDragging) {
+        posX = startPosX + (e.touches[0].clientX - startX);
+        posY = startPosY + (e.touches[0].clientY - startY);
+        clampPos(); applyTransform();
+      } else if (e.touches.length === 2 && lastDist) {
+        var r = viewport.getBoundingClientRect();
+        var nd = tDist(e.touches[0], e.touches[1]);
+        var m  = tMid(e.touches[0], e.touches[1], r);
+        setScale(scale * nd / lastDist, m.x, m.y);
+        lastDist = nd;
+      }
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', function (e) { if (e.touches.length === 0) { isDragging = false; lastDist = null; } });
+
+    img.addEventListener('load', function () { if (overlay.classList.contains('open')) resetZoom(); });
+    window.addEventListener('resize', function () { if (overlay.classList.contains('open')) { computeBaseSize(); clampPos(); applyTransform(); } });
   });
 </script>
 
